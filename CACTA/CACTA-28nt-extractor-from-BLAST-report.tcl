@@ -19,7 +19,7 @@ proc Process_Tables {argv} {
 
     global id_array
 
-    ####### READ ID CONVERSION TABLE INTO MEMORY #######
+    ####### READ DNA SEQUENCES FROM TAB-DELIMITED FILE INTO MEMORY #######
     set l 0
     while { [gets $f_in2 current_line] >= 0 } {
 	set current_data [split   $current_line "\t"]
@@ -32,7 +32,7 @@ proc Process_Tables {argv} {
     }
     close $f_in2
 
-    ####### READ DATA TABLE TO PROCESS #######
+    ####### READ BLAST ALL HITS TABLE AND EXTRACT 28nt CACTA SEGMENTS #######
     set k 0
     set m 0
     set e 0
