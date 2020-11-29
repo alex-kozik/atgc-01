@@ -1,1 +1,6 @@
+CACTA-28nt-extractor-from-BLAST-report.tcl script takes as input:
 
+1. BLAST All Hits Table (from tcl_blast_parser)
+2. List of DNA sequences in tab-delimited file (1-st column: seqence ID; 2-nd column - sequence length; 3-d column - actual DNA sequence)
+
+The output is a table with detailed info about putative CACTA TIR segments
