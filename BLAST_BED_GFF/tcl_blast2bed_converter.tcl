@@ -7,11 +7,13 @@ proc Process_Tables { argv } {
 
     set subj_column [lindex $argv 2]
     set coord1_clmn [lindex $argv 3]
-    set coord1_clmn [lindex $argv 4]
+    set coord2_clmn [lindex $argv 4]
 
     set off_index   [lindex $argv 5]
 
     set dummy_test  [lindex $argv 6]
+
+    puts " Subject:$subj_column C1:$coord1_clmn C2:$coord2_clmn Off_Index:$off_index"
 
     if { $dummy_test != "BED" } {
 	puts " ========================= "
@@ -24,10 +26,10 @@ proc Process_Tables { argv } {
     ####### READ BLAST ALL_HITS TABLE AND CONVERT TO BED #######
     set l 0
     while { [gets $f_in1 current_line] >= 0 } {
-	set current_data [split   $current_line "\t"]
-	set subj_id      [lindex  $current_data    1]
-	set coord1       [lindex  $current_data   12]
-	set coord2       [lindex  $current_data   13]
+	set current_data [split   $current_line           "\t"]
+	set subj_id      [lindex  $current_data   $subj_column]
+	set coord1       [lindex  $current_data   $coord1_clmn]
+	set coord2       [lindex  $current_data   $coord2_clmn]
 
 	set coord1       [expr  $coord1 - $off_index]
 	set coord2       [expr  $coord2 - $off_index]
