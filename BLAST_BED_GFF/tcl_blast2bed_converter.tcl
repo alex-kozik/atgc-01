@@ -35,10 +35,20 @@ proc Process_Tables { argv } {
 	set coord2       [expr  $coord2 - $off_index]
 
 	if {$coord1 < $coord2} {
-		puts $f_out "$subj_id\t$coord1\t$coord2"
+		### BED starts are zero-based and BED ends are one-based
+		### START ###
+		set coord1_bed [expr $coord1 - 1]
+		### END ###
+		set coord2_bed [expr $coord2 - 0]
+		puts $f_out "$subj_id\t$coord1_bed\t$coord2_bed"
 	}
         if {$coord1 > $coord2} {
-                puts $f_out "$subj_id\t$coord2\t$coord1"
+		### BED starts are zero-based and BED ends are one-based
+		### END ###
+		set coord1_bed [expr $coord1 - 0]
+		### START ###
+		set coord2_bed [expr $coord2 - 1]
+                puts $f_out "$subj_id\t$coord2_bed\t$coord1_bed"
         }
         if {$coord1 == $coord2} {
 		puts        " + TOO GOOD TO BE TRUE + "
