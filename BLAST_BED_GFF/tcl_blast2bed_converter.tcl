@@ -16,10 +16,10 @@ proc Process_Tables { argv } {
     puts " Subject:$subj_column C1:$coord1_clmn C2:$coord2_clmn Off_Index:$off_index"
 
     if { $dummy_test != "BED" } {
-	puts " ========================= "
-	puts " DID NOT PASS SOBERTY TEST "
-	puts " LAST OPTION SHOULD BE BED "
-	puts " ========================= "
+	puts " ========================== "
+	puts " DID NOT PASS SOBRIETY TEST "
+	puts " LAST OPTION SHOULD BE  BED "
+	puts " ========================== "
 	exit
     }
 
