@@ -24,7 +24,7 @@ proc Process_Tables { argv } {
 	exit
     }
 
-    ####### READ BLAST ALL_HITS TABLE AND CONVERT TO BED #######
+    ####### READ BLAST ALL_HITS TABLE AND CONVERT TO GFF #######
     set l 0
     set direction "MOOBA"
     while { [gets $f_in1 current_line] >= 0 } {
