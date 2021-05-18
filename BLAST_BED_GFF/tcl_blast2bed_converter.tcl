@@ -26,6 +26,7 @@ proc Process_Tables { argv } {
     ####### READ BLAST ALL_HITS TABLE AND CONVERT TO BED #######
     set l 0
     set blank_line_counter 0
+    set comment_line_counter 0
     while { [gets $f_in1 current_line] >= 0 } {
     
     	set tab_data "TRUE"
@@ -38,6 +39,7 @@ proc Process_Tables { argv } {
     	set comment_line [string range $current_line 0 0]
 	if {$comment_line == "#"} {
 		set tab_data "FALSE"
+		incr comment_line_counter
 	}
     
     	if {$tab_data == "TRUE"} {
@@ -77,11 +79,13 @@ proc Process_Tables { argv } {
     close $f_in1
     close $f_out
 
-    puts "=========="
-    puts " $l lines "
-    puts " ======== "
-    puts "   DONE   "
-    puts " ======== "
+    puts "====================================="
+    puts " BLAST DATA    $l lines "
+    puts " COMMENT LINES $comment_line_counter "
+    puts " BLANK LINES   $blank_line_counter   "
+    puts " =================================== "
+    puts "               DONE                  "
+    puts " =================================== "
 }
 
 if { $argc != 7 } {
