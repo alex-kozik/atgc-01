@@ -43,7 +43,9 @@ proc Process_Tables { argv } {
 		puts $f_out "$subj_id\t$coord1\t$coord2"
 		incr g
 	}
-        if {$coord1 >= $coord2} {
+        if {$coord1 > $coord2} {
+		puts "================================"
+		puts "   $coord1  $coord2  Line: $l   "
 		puts        " + TOO GOOD TO BE TRUE + "
                 puts $f_out " + TOO GOOD TO BE TRUE + "
 		exit
