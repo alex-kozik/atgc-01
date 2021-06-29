@@ -24,9 +24,9 @@ proc Process_Tables { argv } {
 	exit
     }
 
-    ####### READ BED COORDS TABLE AND CONVERT TO GFF #######
+    ####### READ GFF COORDS TABLE AND CONVERT TO BED #######
     set l 0
-    set direction "."
+    set g 0
     while { [gets $f_in1 current_line] >= 0 } {
 	set current_data [split   $current_line           "\t"]
 	set subj_id      [lindex  $current_data   $subj_column]
@@ -41,6 +41,7 @@ proc Process_Tables { argv } {
 		### BED starts are zero-based and GFF starts are one-based
 		set coord1 [expr $coord1 - 1]
 		puts $f_out "$subj_id\t$coord1\t$coord2"
+		incr g
 	}
         if {$coord1 >= $coord2} {
 		puts        " + TOO GOOD TO BE TRUE + "
@@ -52,11 +53,12 @@ proc Process_Tables { argv } {
     close $f_in1
     close $f_out
 
-    puts "=========="
-    puts " $l lines "
-    puts " ======== "
-    puts "   DONE   "
-    puts " ======== "
+    puts "============="
+    puts " $l lines    "
+    puts " $g features "
+    puts " =========== "
+    puts "     DONE    "
+    puts " =========== "
 }
 
 if { $argc != 9 } {
