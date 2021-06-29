@@ -37,7 +37,7 @@ proc Process_Tables { argv } {
 	set coord1       [expr  $coord1 - $off_index]
 	set coord2       [expr  $coord2 - $off_index]
 
-	if {$coord1 < $coord2 && feature == gff_feature} {
+	if {$coord1 < $coord2 && $feature == $gff_feature} {
 		### BED starts are zero-based and GFF starts are one-based
 		set coord1 [expr $coord1 - 1]
 		puts $f_out "$subj_id\t$coord1\t$coord2"
