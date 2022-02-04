@@ -137,10 +137,12 @@ proc Search_Seqs { argv } {
 		     set tsd_status   "TSD_TRUE"
 		}
 		puts $f_out "\>$seq_id\:$tir_count\:$tir_length \[$tir_start\:$tir_end\] \[$key_seq\:$key_rev\] \[$tsd_left\:$tsd_right\] $tsd_status \n$tir_fragment"
-		set s_start $sub_end
+		### SHIFT BY SEGMENT LENGTH ###
+		set s_start [expr $tir_end - 1]
 		puts -nonewline " $s_start $find_me * "
 	    }
             if { $find_me == -1 } {
+	        ### SHIFT BY ONE NUCLEOTIDE ###
 		incr s_start
             }
 	    ### puts -nonewline " $s_start "
