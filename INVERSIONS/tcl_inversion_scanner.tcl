@@ -18,6 +18,7 @@ proc Reverse_Complement_String { seq_frw } {
 
 ###         SEQUENCE COMPLEXITY           ###
 proc Sequence_Complexity { key_string } {
+	set find_N "FALSE"
 	set key_list   [split $key_string {}]
 	set uniqueATGC [lsort -unique $key_list]
 	set key_compl  [llength $uniqueATGC]
@@ -27,9 +28,15 @@ proc Sequence_Complexity { key_string } {
 	if { $key_compl <= 3 } {
             set seq_compl "LOW"
         }
+	set find_N [lsearch $key_list N]
+	if { $find_N != "FALSE" } {
+	    set seq_compl "LOW"
+	}
 	return $seq_compl
 	# puts $key_list
 	# puts $uniqueATGC
+	# puts $find_N
+	# puts $seq_compl
 }
 
 #############################################
