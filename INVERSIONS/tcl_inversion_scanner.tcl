@@ -94,7 +94,7 @@ proc Search_Seqs { argv } {
 	### SEARCH EACH SEQUENCE FOR INVERTED REPEATS ###
 	while { $s_start < $seq_len } {
 	    ###           DEFINE SEARCH KEY           ###
-	    set s_end [expr $s_start + $key_len + 1]
+	    set s_end [expr $s_start + $key_len - 1]
 	    set key_seq [string range $seqs $s_start $s_end]
 	    set key_rev [Reverse_Complement_String $key_seq]
 	    ###               DUBUGGING               ###
