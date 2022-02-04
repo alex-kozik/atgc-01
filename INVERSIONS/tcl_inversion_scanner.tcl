@@ -29,14 +29,14 @@ proc Sequence_Complexity { key_string } {
             set seq_compl "LOW"
         }
 	set find_N [lsearch $key_list N]
-	if { $find_N != "FALSE" } {
+	if { $find_N != -1 } {
 	    set seq_compl "LOW"
 	}
-	return $seq_compl
 	# puts $key_list
 	# puts $uniqueATGC
 	# puts $find_N
 	# puts $seq_compl
+	return $seq_compl
 }
 
 #############################################
