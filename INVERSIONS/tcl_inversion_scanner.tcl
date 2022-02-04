@@ -109,8 +109,8 @@ proc Search_Seqs { argv } {
 	    	puts "$key_seq\t$key_rev"
 	    }
 	    ###     SUBSEQUNCE TO SEARCH WITH KEY     ###
-	    set sub_start [expr $s_end + $len_min + 1]
-	    set sub_end   [expr $s_end + $len_max + 1]
+	    set sub_start [expr $s_end + $len_min - 1]
+	    set sub_end   [expr $s_end + $len_max - 1]
 	    set sub_seq   [string range $seqs $s_end $sub_end]
 	    set segment   [string range $seqs $s_start $sub_end]
             ###               DUBUGGING               ###
