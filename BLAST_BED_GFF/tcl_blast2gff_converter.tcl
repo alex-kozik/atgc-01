@@ -30,22 +30,8 @@ proc Process_Tables { argv } {
     set comment_line_counter 0
     set direction "MOOBA"
     
-    set tab_data "TRUE"
-    
-        if {$current_line == ""} {
-                set tab_data "FALSE"
-                incr blank_line_counter
-        }
-        
-        set comment_line [string range $current_line 0 0]
-        if {$comment_line == "#"} {
-                set tab_data "FALSE"
-                incr comment_line_counter
-        }
-    
-    if {$tab_data == "TRUE"} {
-    
-	    while { [gets $f_in1 current_line] >= 0 } {
+    while { [gets $f_in1 current_line] >= 0 } {
+    	if {$tab_data == "TRUE"} {
 		set current_data [split   $current_line           "\t"]
 		set subj_id      [lindex  $current_data   $subj_column]
 		set coord1       [lindex  $current_data   $coord1_clmn]
@@ -78,6 +64,14 @@ proc Process_Tables { argv } {
     }
     close $f_in1
     close $f_out
+
+    puts "====================================="
+    puts " BLAST DATA    $l lines "
+    puts " COMMENT LINES $comment_line_counter "
+    puts " BLANK LINES   $blank_line_counter   "
+    puts " =================================== "
+    puts "               DONE                  "
+    puts " =================================== "
 
     puts "=========="
     puts " $l lines "
