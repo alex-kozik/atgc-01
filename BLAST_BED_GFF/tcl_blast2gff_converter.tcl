@@ -26,36 +26,55 @@ proc Process_Tables { argv } {
 
     ####### READ BLAST ALL_HITS TABLE AND CONVERT TO GFF #######
     set l 0
+    set blank_line_counter 0
+    set comment_line_counter 0
     set direction "MOOBA"
-    while { [gets $f_in1 current_line] >= 0 } {
-	set current_data [split   $current_line           "\t"]
-	set subj_id      [lindex  $current_data   $subj_column]
-	set coord1       [lindex  $current_data   $coord1_clmn]
-	set coord2       [lindex  $current_data   $coord2_clmn]
-
-	set coord1       [expr  $coord1 - $off_index]
-	set coord2       [expr  $coord2 - $off_index]
-
-	set direction "BOOBA"
-
-	if {$coord1 < $coord2} {
-		set direction "+"
-		set segment_len [expr $coord2 - $coord1 + 1]
-		puts $f_out "$subj_id\t$gff_clmn2\t$gff_clmn3\t$coord1\t$coord2\t\.\t$direction\t\.\tName=$gff_clmn3;Length\=$segment_len"
-	}
-        if {$coord1 > $coord2} {
-		set direction "-"
-		set segment_len [expr $coord1 - $coord2 + 1]
-                puts $f_out "$subj_id\t$gff_clmn2\t$gff_clmn3\t$coord2\t$coord1\t\.\t$direction\t\.\tName=$gff_clmn3;Length\=$segment_len"
+    
+    set tab_data "TRUE"
+    
+        if {$current_line == ""} {
+                set tab_data "FALSE"
+                incr blank_line_counter
         }
-        if {$coord1 == $coord2} {
-		set direction "_NULL_"
-		puts        "      $direction         "
-		puts        " + TOO GOOD TO BE TRUE + "
-                puts $f_out " + TOO GOOD TO BE TRUE + "
-		exit
+        
+        set comment_line [string range $current_line 0 0]
+        if {$comment_line == "#"} {
+                set tab_data "FALSE"
+                incr comment_line_counter
         }
-	incr l
+    
+    if {$tab_data == "TRUE"} {
+    
+	    while { [gets $f_in1 current_line] >= 0 } {
+		set current_data [split   $current_line           "\t"]
+		set subj_id      [lindex  $current_data   $subj_column]
+		set coord1       [lindex  $current_data   $coord1_clmn]
+		set coord2       [lindex  $current_data   $coord2_clmn]
+
+		set coord1       [expr  $coord1 - $off_index]
+		set coord2       [expr  $coord2 - $off_index]
+
+		set direction "BOOBA"
+
+		if {$coord1 < $coord2} {
+			set direction "+"
+			set segment_len [expr $coord2 - $coord1 + 1]
+			puts $f_out "$subj_id\t$gff_clmn2\t$gff_clmn3\t$coord1\t$coord2\t\.\t$direction\t\.\tName=$gff_clmn3;Length\=$segment_len"
+		}
+		if {$coord1 > $coord2} {
+			set direction "-"
+			set segment_len [expr $coord1 - $coord2 + 1]
+			puts $f_out "$subj_id\t$gff_clmn2\t$gff_clmn3\t$coord2\t$coord1\t\.\t$direction\t\.\tName=$gff_clmn3;Length\=$segment_len"
+		}
+		if {$coord1 == $coord2} {
+			set direction "_NULL_"
+			puts        "      $direction         "
+			puts        " + TOO GOOD TO BE TRUE + "
+			puts $f_out " + TOO GOOD TO BE TRUE + "
+			exit
+		}
+		incr l
+	    }
     }
     close $f_in1
     close $f_out
