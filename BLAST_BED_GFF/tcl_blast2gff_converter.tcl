@@ -31,6 +31,16 @@ proc Process_Tables { argv } {
     set direction "MOOBA"
     
     while { [gets $f_in1 current_line] >= 0 } {
+    set tab_data "TRUE"
+        if {$current_line == ""} {
+                set tab_data "FALSE"
+                incr blank_line_counter
+        }
+        set comment_line [string range $current_line 0 0]
+        if {$comment_line == "#"} {
+                set tab_data "FALSE"
+                incr comment_line_counter
+        }
     	if {$tab_data == "TRUE"} {
 		set current_data [split   $current_line           "\t"]
 		set subj_id      [lindex  $current_data   $subj_column]
